@@ -156,6 +156,9 @@ TRADER_WALLET=trader-wallet-address-to-copy
 
 # Optional: Sizing Configuration
 STAKE_WHALE_PCT=0.001
+
+# Optional: Signature Type (change if you get "invalid signature" error)
+# POLY_SIGNATURE_TYPE=1
 ```
 
 **Getting Your Credentials:**
@@ -163,6 +166,19 @@ STAKE_WHALE_PCT=0.001
 - **Private Key**: Go to [reveal.magic.link/polymarket](https://reveal.magic.link/polymarket) and reveal your key
 - **Proxy Address**: Found under your profile picture on Polymarket
 - **Trader Wallet**: Copy from any trader's profile on Polymarket
+
+**⚠️ Troubleshooting "Invalid Signature" Error:**
+
+If you see `PolyApiException[status_code=400, error_message={'error': 'invalid signature'}]`, you may need to adjust the `POLY_SIGNATURE_TYPE` setting:
+
+- **Type 0 (EOA)**: Use if you have a standard wallet (MetaMask, WalletConnect, hardware wallet)
+- **Type 1 (POLY_PROXY)**: Default - use if you login with Email/Magic Link on Polymarket
+- **Type 2 (POLY_GNOSIS_SAFE)**: Use if you have a Gnosis Safe wallet
+
+Add this line to your `.env` file with the appropriate value:
+```env
+POLY_SIGNATURE_TYPE=0  # or 1 (default) or 2
+```
 
 5. **Run your polymarket copy trading bot**
 
@@ -195,6 +211,7 @@ TRADER_WALLET=         # Trader wallet address to copy
 TRADER_WALLET=         # Trader wallet address to copy (can be changed anytime)
 BANKROLL=500          # Your trading capital (default: 1000)
 STAKE_WHALE_PCT=0.001 # Copy 0.1% of trader's size (default: 0.005)
+POLY_SIGNATURE_TYPE=1 # Wallet signature type: 0=EOA, 1=POLY_PROXY (default), 2=POLY_GNOSIS_SAFE
 ```
 
 ### Position Sizing Examples
