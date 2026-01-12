@@ -21,7 +21,7 @@ def validate_token_id(client: ClobClient, token_id: str) -> bool:
     try:
         # Attempt to get the order book for this token
         # If the orderbook doesn't exist, this will raise an exception
-        orderbook = client.get_order_book(token_id)
+        client.get_order_book(token_id)
         return True
     except Exception as e:
         # If we get an error, the token_id is likely invalid or the market is closed
