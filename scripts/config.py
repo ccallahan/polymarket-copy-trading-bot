@@ -39,6 +39,7 @@ class Config:
         self.POLY_FUNDER = os.getenv("POLY_FUNDER")
         self.CLOB_API_URL = os.getenv("CLOB_API_URL", "https://clob.polymarket.com")
         self.POLY_CHAIN_ID = int(os.getenv("POLY_CHAIN_ID", "137"))
+        self.POLY_SIGNATURE_TYPE = int(os.getenv("POLY_SIGNATURE_TYPE", "1"))
         
         # Trader Wallet Configuration
         self.TRADER_WALLET = os.getenv("TRADER_WALLET")
@@ -94,12 +95,16 @@ class Config:
     
     def print_config_summary(self):
         """Print a summary of the loaded configuration"""
+        sig_type_names = {0: "EOA (Standard Wallet)", 1: "POLY_PROXY (Magic/Email)", 2: "POLY_GNOSIS_SAFE"}
+        sig_type_display = sig_type_names.get(self.POLY_SIGNATURE_TYPE, f"Unknown ({self.POLY_SIGNATURE_TYPE})")
+        
         print("=" * 80)
         print("⚙️  CONFIGURATION LOADED")
         print("=" * 80)
         print(f"📊 Supabase URL: {self.SUPABASE_URL}")
         print(f"🔗 CLOB API: {self.CLOB_API_URL}")
         print(f"⛓️  Chain ID: {self.POLY_CHAIN_ID}")
+        print(f"🔐 Signature Type: {sig_type_display}")
         print(f"📈 Trader Wallet (to copy): {self.TRADER_WALLET[:10] if self.TRADER_WALLET else 'Not set'}...")
         print(f"💰 Bankroll: ${self.get_bankroll()}")
         print(f"📊 Min Stake: ${self.STAKE_MIN}")
